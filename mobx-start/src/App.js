@@ -4,52 +4,60 @@ import { observer } from "mobx-react";
 import React, { useContext } from "react";
 import PersonContext from "./contexts/PersonContext";
 import autobind from "autobind-decorator";
+import { computed } from "mobx";
 
-// function App() {
-//   const personStore = useContext(PersonContext);
+function App() {
+  const personStore = useContext(PersonContext);
 
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>{personStore.age}</p>
-//         <p>
-//           <button onClick={click}>plus</button>
-//         </p>
-//       </header>
-//     </div>
-//   );
+  const age10 = computed(() => {
+    return Math.floor(personStore.age / 10) * 10;
+  }).get();
 
-//   function click() {
-//     personStore.plus();
-//   }
-// }
+  console.log("render");
 
-@observer
-class App extends React.Component {
-  static contextType = PersonContext;
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>{age10}</p>
+        <p>
+          <button onClick={click}>plus</button>
+        </p>
+      </header>
+    </div>
+  );
 
-  render() {
-    const personStore = this.context;
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>{personStore.age}</p>
-          <p>
-            <button onClick={this.click}>plus</button>
-          </p>
-        </header>
-      </div>
-    );
-  }
-
-  @autobind
-  click() {
-    const personStore = this.context;
+  function click() {
     personStore.plus();
   }
 }
 
-export default App;
+// @observer
+// class App extends React.Component {
+//   static contextType = PersonContext;
+
+//   render() {
+//     console.log("render");
+//     const personStore = this.context;
+
+//     return (
+//       <div className="App">
+//         <header className="App-header">
+//           <img src={logo} className="App-logo" alt="logo" />
+//           <p>{personStore.age10}</p>
+//           <p>
+//             <button onClick={this.click}>plus</button>
+//           </p>
+//         </header>
+//       </div>
+//     );
+//   }
+
+//   @autobind
+//   click() {
+//     const personStore = this.context;
+//     personStore.plus();
+//   }
+// }
+
+export default observer(App);
