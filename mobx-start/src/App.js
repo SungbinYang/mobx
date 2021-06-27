@@ -3,6 +3,7 @@ import React from "react";
 import PersonContainer from "./containers/PersonContainer";
 import TodoContainer from "./containers/TodoContainer";
 import TodoFormContainer from "./containers/TodoFormContainer";
+import UserListContainer from "./containers/UserListContainer";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <PersonContainer />
         <TodoContainer />
         <TodoFormContainer />
+        <UserListContainer />
       </header>
     </div>
   );
